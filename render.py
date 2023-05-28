@@ -65,7 +65,13 @@ class Render:
 
         return current_col, current_row
 
-    def draw(self, surface, board):
+    def draw_board(self, surface, board):
+        """
+        draw board
+        :param surface: current surface
+        :param board: current board
+        :return:
+        """
         if board.value == 2 or board.value == 0:
             for rmain in range(DIM):
                 for cmain in range(DIM):
@@ -83,6 +89,14 @@ class Render:
 
 
     def draw_fig(self, surface, board, col, row):
+        """
+        draw fig
+        :param surface: current surface
+        :param board: current board
+        :param col: current column
+        :param row: current row
+        :return:
+        """
         sqr = board.squares[row][col]
         if sqr == PLAYER_X:
             # Desc line

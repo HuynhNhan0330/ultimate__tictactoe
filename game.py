@@ -4,28 +4,37 @@ from const import *
 
 from board import Board
 from render import Render
-
+from ai import AI
 
 class Game:
     """
     Class Game
     """
 
-    def __init__(self, AI=0):
+    def __init__(self, game_mode=0, level=0, level1=0):
         """
         Constructor
+        :param game_mode: current game mode
+        - 0: two players
+        - 1: one player
+        - 2: AI vs AI
         """
         self.board = Board()
         self.render = Render()
         self.player = PLAYER_X
         self.playing = True
         self.player_playing = True
-        self.AI = AI
+        self.game_mode = game_mode
+        self.level = level
+        self.level1 = level1
         pygame.font.init()
 
-        if AI == 1:
+        if game_mode == 1:
+            self.AI = AI(level)
             pass
-        elif AI == 2:
+        elif game_mode == 2:
+            self.AI = AI(level, 1)
+            self.AI1 = AI(level1, -1)
             self.player_playing = False
 
     def render_screen_game(self, surface):
@@ -37,7 +46,7 @@ class Game:
         self.render.create_board(surface, self.board)
         self.render.draw_status(surface, self.board, self.player, abs(self.board.value))
         self.draw_player(surface)
-        self.render.draw(surface, self.board)
+        self.render.draw_board(surface, self.board)
         self.draw_board_valid(surface, self.playing)
 
     def next_turn(self):
@@ -50,21 +59,20 @@ class Game:
     def draw_board_valid(self, surface, is_draw):
         if not is_draw:
             return
-
         sqr = self.board.squares[self.board.valid_row][self.board.valid_col]
         if sqr.value == 2:
             self.render.draw_board_valid(surface, sqr)
 
     def draw_player(self, surface):
-        if self.AI == 0:
-            self.render.draw_player(surface, self.board, self.player, "Player 1")
-            self.render.draw_player(surface, self.board, -self.player, "Player 2")
-        elif self.AI == 1:
-            self.render.draw_player(surface, self.board, self.player, "Player 1")
-            self.render.draw_player(surface, self.board, -self.player, "AI")
-        elif self.AI == 2:
-            self.render.draw_player(surface, self.board, self.player, "AI 1")
-            self.render.draw_player(surface, self.board, -self.player, "AI 2")
+        if self.game_mode == 0:
+            self.render.draw_player(surface, self.board, PLAYER_X, "Player 1")
+            self.render.draw_player(surface, self.board, PLAYER_O, "Player 2")
+        elif self.game_mode == 1:
+            self.render.draw_player(surface, self.board, PLAYER_X, "Player 1")
+            self.render.draw_player(surface, self.board, PLAYER_O, "AI")
+        elif self.game_mode == 2:
+            self.render.draw_player(surface, self.board, PLAYER_X, "AI 1")
+            self.render.draw_player(surface, self.board, PLAYER_O, "AI 2")
 
     def play_turn(self, col, row):
         """
@@ -76,12 +84,10 @@ class Game:
         if self.board.valid_sqr(col, row):
             self.board.mark_sqr(col, row, self.player)
             self.check_winner(col, row)
-            if not self.playing:
-                return
-
-            self.next_turn()
             self.board.valid_col = col % 3
             self.board.valid_row = row % 3
+            if self.playing:
+                self.next_turn()
 
     def play_turn_click(self, xclick, yclick):
         """
@@ -130,4 +136,17 @@ class Game:
         Reset the board
         :return:
         """
-        self.__init__()
+        self.__init__(self.game_mode, self.level, self.level1)
+
+    def run_ai(self):
+        if not self.playing:
+            return
+
+        if self.game_mode == 1:
+            if self.AI.player == self.player:
+                self.player_playing = False
+                row, col = self.AI.eval(self.board)
+                self.play_turn(col, row)
+                self.player_playing = True
+        else:
+            pass

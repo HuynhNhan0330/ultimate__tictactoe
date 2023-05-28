@@ -105,9 +105,11 @@ class Board:
             if main_row != valid_row or main_col != valid_col:
                 return False
 
-        sqr = self.squares[main_row][main_col].squares[sub_row][sub_col]
+        sqr = self.squares[main_row][main_col]
+        if not sqr.value == 2:
+            return False
 
-        if not sqr == 2:
+        if not sqr.squares[sub_row][sub_col] == 2:
             return False
 
         return True
@@ -121,7 +123,7 @@ class Board:
 
         for r in range(9):
             for c in range(9):
-                if self.valid_sqr(r, c):
+                if self.valid_sqr(c, r):
                     list_valid_sqrs.append((r, c))
 
         return list_valid_sqrs

@@ -27,9 +27,10 @@ class Main:
         0 Main screen
         1 Type play screen
         2 Gui game screen
-        3 Play AI screen (difficulty_level_play)
+        3 Difficulty level play screen
         4 Play 2 player screen
         5 AI play together screen
+        6 Play AI screen
         """
 
     def mainloop(self):
@@ -50,6 +51,14 @@ class Main:
                 self.difficulty_level_play(screen, mouse_pos)
             elif self.status_screen == 4:
                 self.play_with_player(screen, mouse_pos)
+            elif self.status_screen == 5:
+                pass
+            elif self.status_screen == 6:
+                self.play_AI(screen, mouse_pos)
+            elif self.status_screen == 7:
+                pass
+            elif self.status_screen == 8:
+                pass
 
             pygame.display.update()
 
@@ -153,7 +162,7 @@ class Main:
                 if play_with_ai_button.checkForInput(mouse_pos):
                     self.set_status_screen(3)
                 if play_with_player_button.checkForInput(mouse_pos):
-                    self.game.restart()
+                    self.game = Game()
                     self.set_status_screen(4)
                 if ai_play_together_button.checkForInput(mouse_pos):
                     pass
@@ -188,9 +197,11 @@ class Main:
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if level_easy_button.checkForInput(mouse_pos):
-                    pass
+                    self.game = Game(1, 0)
+                    self.set_status_screen(6)
                 if level_normal_button.checkForInput(mouse_pos):
-                    pass
+                    self.game = Game(1, 1)
+                    self.set_status_screen(6)
                 if level_difficult_button.checkForInput(mouse_pos):
                     pass
                 if back_button.checkForInput(mouse_pos):
@@ -226,6 +237,39 @@ class Main:
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
+
+    def play_AI(self, surface, mouse_pos):
+        game = self.game
+        game.render_screen_game(surface)
+
+        play_again_button = Button(image=None,
+                                   pos=(self.game.board.dims.size + self.game.board.margin + 120, HEIGHT_WINDOW - 100),
+                                   text_input="Chơi lại", font=get_font(30), base_color="#d7fcd4",
+                                   hovering_color="White")
+        back_button = Button(image=None,
+                             pos=(self.game.board.dims.size + self.game.board.margin + 120, HEIGHT_WINDOW - 50),
+                             text_input="Quay lại", font=get_font(30), base_color="#d7fcd4",
+                             hovering_color="White")
+
+        for button in [play_again_button, back_button]:
+            button.changeColor(mouse_pos)
+            button.update(surface)
+
+        for event in pygame.event.get():
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if play_again_button.checkForInput(mouse_pos):
+                    self.game.restart()
+                elif back_button.checkForInput(mouse_pos):
+                    self.set_status_screen(3)
+                elif game.playing and game.player_playing:
+                    game.play_turn_click(mouse_pos[0], mouse_pos[1])
+
+            # quit
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
+        game.run_ai()
 
 
 if __name__ == '__main__':
