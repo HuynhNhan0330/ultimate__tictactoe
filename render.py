@@ -210,3 +210,4 @@ class Render:
         ycor = board.margin * 2 + (0 if numricPlayer == 1 else board.margin * 2)
         surface.blit(lbl, (xcor, ycor))
 
+

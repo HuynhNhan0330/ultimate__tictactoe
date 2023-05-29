@@ -1,6 +1,4 @@
-import pygame
-
-from const import *
+from helper import *
 
 from board import Board
 from render import Render
@@ -118,6 +116,7 @@ class Game:
         is_check_winner = self.board.check_win(matrix)
         if not is_check_winner == 2:
             self.board.squares[main_row][main_col].value = is_check_winner
+            sound_finish()
 
         matrix = []
         for r in range(DIM):
@@ -129,6 +128,7 @@ class Game:
         is_check_winner = self.board.check_win(matrix)
         if not is_check_winner == 2:
             self.board.value = is_check_winner
+            sound_finish()
             self.playing = False
 
     def restart(self):
