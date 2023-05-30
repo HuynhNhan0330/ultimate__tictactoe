@@ -122,7 +122,8 @@ class Main:
             surface.blit(text, (xpos, ypos))
             ypos += 35
 
-        back_button = Button(image=pygame.image.load("Resourse/Image/Rect.png"), pos=(WIDTH_WINDOW // 2, HEIGHT_WINDOW - 65),
+        back_button = Button(image=pygame.image.load("Resourse/Image/Rect.png"),
+                             pos=(WIDTH_WINDOW // 2, HEIGHT_WINDOW - 65),
                              text_input="Quay lại", font=get_font(60), base_color="#d7fcd4", hovering_color="White")
 
         for button in [back_button]:
@@ -147,10 +148,12 @@ class Main:
         play_with_ai_button = Button(image=pygame.image.load("Resourse/Image/Rect.png"), pos=(WIDTH_WINDOW // 2, 180),
                                      text_input="Chơi với máy", font=get_font(48), base_color="#d7fcd4",
                                      hovering_color="White")
-        play_with_player_button = Button(image=pygame.image.load("Resourse/Image/Rect.png"), pos=(WIDTH_WINDOW // 2, 330),
+        play_with_player_button = Button(image=pygame.image.load("Resourse/Image/Rect.png"),
+                                         pos=(WIDTH_WINDOW // 2, 330),
                                          text_input="Chơi 2 người", font=get_font(48), base_color="#d7fcd4",
                                          hovering_color="White")
-        ai_play_together_button = Button(image=pygame.image.load("Resourse/Image/Rect.png"), pos=(WIDTH_WINDOW // 2, 480),
+        ai_play_together_button = Button(image=pygame.image.load("Resourse/Image/Rect.png"),
+                                         pos=(WIDTH_WINDOW // 2, 480),
                                          text_input="Máy với máy", font=get_font(48), base_color="#d7fcd4",
                                          hovering_color="White")
         back_button = Button(image=pygame.image.load("Resourse/Image/Rect.png"), pos=(WIDTH_WINDOW // 2, 630),
@@ -189,7 +192,8 @@ class Main:
         level_normal_button = Button(image=pygame.image.load("Resourse/Image/Rect.png"), pos=(WIDTH_WINDOW // 2, 330),
                                      text_input="Bình thường", font=get_font(48), base_color="#d7fcd4",
                                      hovering_color="White")
-        level_difficult_button = Button(image=pygame.image.load("Resourse/Image/Rect.png"), pos=(WIDTH_WINDOW // 2, 480),
+        level_difficult_button = Button(image=pygame.image.load("Resourse/Image/Rect.png"),
+                                        pos=(WIDTH_WINDOW // 2, 480),
                                         text_input="Khó", font=get_font(48), base_color="#d7fcd4",
                                         hovering_color="White")
         back_button = Button(image=pygame.image.load("Resourse/Image/Rect.png"), pos=(WIDTH_WINDOW // 2, 630),

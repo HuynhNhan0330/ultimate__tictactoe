@@ -3,6 +3,7 @@ import math
 
 from const import *
 
+
 class AI:
     def __init__(self, level=0, player=-1):
         self.level = level
@@ -19,7 +20,7 @@ class AI:
             move = self.rnd(board)
         else:
             minimaxap = Minimaxap(board)
-            move = minimaxap.minimax(board, 3, -math.inf, math.inf, self.player, True)[1]
+            move = minimaxap.search(board, 3, -math.inf, math.inf, self.player, True)[1]
 
         return move
 
@@ -28,7 +29,7 @@ class Minimaxap():
     def __init__(self, board):
         self.board = board
 
-    def minimax(self, board, depth, alpha, beta, player, isMaximizer):
+    def search(self, board, depth, alpha, beta, player, isMaximizer):
         matrix = []
         for r in range(DIM):
             m = []
@@ -47,7 +48,7 @@ class Minimaxap():
 
             for r, c in list_valid_move:
                 copyBoard = board.deepcopy()
-                value = self.minimax(copyBoard, depth - 1, alpha, beta, -player, False)[0]
+                value = self.search(copyBoard, depth - 1, alpha, beta, -player, False)[0]
 
                 if value > maxEval:
                     maxEval = value
@@ -64,8 +65,7 @@ class Minimaxap():
 
             for r, c in list_valid_move:
                 copyBoard = board.deepcopy()
-                value = self.minimax(copyBoard, depth - 1, alpha, beta, -player, True)[0]
-                beta = min(beta, value)
+                value = self.search(copyBoard, depth - 1, alpha, beta, -player, True)[0]
 
                 if minEval > value:
                     minEval = value
@@ -89,23 +89,27 @@ class Minimaxap():
     def evaluate_sub_board(self, matrix, player):
         score = 0
 
+        # Score row
         for row in matrix:
             score += self.count_score(row, player)
 
-        for col in range(3):  # Score for each column
+        # Score column
+        for col in range(3):
             cols = []
             for row in range(3):
                 cols.append(matrix[row][col])
 
             score += self.count_score(cols, player)
 
-        # A score for each diagonal
+        # Score diagonal
+        # asc
         diags = []
         for indx in range(len(matrix)):
             diags.append(matrix[indx][indx])
 
         score += self.count_score(diags, player)
 
+        # desc
         diags_2 = []
         for indx, rev_indx in enumerate(reversed(range(len(matrix)))):
             diags_2.append(matrix[indx][rev_indx])

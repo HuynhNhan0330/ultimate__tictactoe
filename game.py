@@ -4,6 +4,7 @@ from board import Board
 from render import Render
 from ai import AI
 
+
 class Game:
     """
     Class Game
@@ -81,11 +82,21 @@ class Game:
         """
         if self.board.valid_sqr(col, row):
             self.board.mark_sqr(col, row, self.player)
-            self.check_winner(col, row)
+            if not self.board.value == 2:
+                sound_finish()
+                self.playing = False
+
             self.board.valid_col = col % 3
             self.board.valid_row = row % 3
             if self.playing:
                 self.next_turn()
+
+    def restart(self):
+        """
+        Reset the board
+        :return:
+        """
+        self.__init__(self.game_mode, self.level, self.level1)
 
     def play_turn_click(self, xclick, yclick):
         """
@@ -96,47 +107,6 @@ class Game:
         """
         col, row = self.render.convert_coord_of_screen_to_board(xclick, yclick, self.board)
         self.play_turn(col, row)
-
-    def check_winner(self, col, row):
-        """
-        Check win
-        :return:
-        """
-        main_row = row // 3
-        main_col = col // 3
-        sqr = self.board.squares[main_row][main_col]
-
-        matrix = []
-        for r in range(DIM):
-            m = []
-            for c in range(DIM):
-                m.append(sqr.squares[r][c])
-            matrix.append(m)
-
-        is_check_winner = self.board.check_win(matrix)
-        if not is_check_winner == 2:
-            self.board.squares[main_row][main_col].value = is_check_winner
-            sound_finish()
-
-        matrix = []
-        for r in range(DIM):
-            m = []
-            for c in range(DIM):
-                m.append(self.board.squares[r][c].value)
-            matrix.append(m)
-
-        is_check_winner = self.board.check_win(matrix)
-        if not is_check_winner == 2:
-            self.board.value = is_check_winner
-            sound_finish()
-            self.playing = False
-
-    def restart(self):
-        """
-        Reset the board
-        :return:
-        """
-        self.__init__(self.game_mode, self.level, self.level1)
 
     def run_ai(self):
         if not self.playing:

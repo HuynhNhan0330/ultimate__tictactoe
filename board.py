@@ -143,6 +143,34 @@ class Board:
         sub_col = col % 3
 
         self.squares[main_row][main_col].squares[sub_row][sub_col] = player
+        self.set_win(col, row)
+
+    def set_win(self, col, row):
+        main_row = row // 3
+        main_col = col // 3
+        sqr = self.squares[main_row][main_col]
+
+        matrix = []
+        for r in range(DIM):
+            m = []
+            for c in range(DIM):
+                m.append(sqr.squares[r][c])
+            matrix.append(m)
+
+        is_check_winner = self.check_win(matrix)
+        if not is_check_winner == 2:
+            self.squares[main_row][main_col].value = is_check_winner
+
+        matrix = []
+        for r in range(DIM):
+            m = []
+            for c in range(DIM):
+                m.append(self.squares[r][c].value)
+            matrix.append(m)
+
+        is_check_winner = self.check_win(matrix)
+        if not is_check_winner == 2:
+            self.value = is_check_winner
 
     def check_win(self, matrix):
         """

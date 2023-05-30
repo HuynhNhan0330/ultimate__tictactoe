@@ -87,7 +87,6 @@ class Render:
         else:
             self.merge_fig_win(surface, board, board.value)
 
-
     def draw_fig(self, surface, board, col, row):
         """
         draw fig
@@ -191,7 +190,8 @@ class Render:
         elif type == 0:
             word = "DRAW"
         lbl = font.render(word, True, CROSS_COLOR)
-        surface.blit(lbl, (board.dims.size // 2 - lbl.get_rect().width // 2 + board.margin, board.dims.size + board.margin))
+        surface.blit(lbl,
+                     (board.dims.size // 2 - lbl.get_rect().width // 2 + board.margin, board.dims.size + board.margin))
 
     def draw_player(self, surface, board, player, lb):
         """
@@ -209,5 +209,3 @@ class Render:
         xcor = board.dims.size + board.margin * 3
         ycor = board.margin * 2 + (0 if numricPlayer == 1 else board.margin * 2)
         surface.blit(lbl, (xcor, ycor))
-
-
