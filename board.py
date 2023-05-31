@@ -183,21 +183,21 @@ class Board:
         """
         # Vertical win
         for col in range(DIM):
-            if matrix[0][col] == matrix[1][col] == matrix[2][col] != 2:
+            if matrix[0][col] != 0 and matrix[0][col] == matrix[1][col] == matrix[2][col] != 2:
                 return matrix[0][col]
 
         # Horizontal win
         for row in range(DIM):
-            if matrix[row][0] == matrix[row][1] == matrix[row][2] != 2:
+            if matrix[row][0] != 0 and matrix[row][0] == matrix[row][1] == matrix[row][2] != 2:
                 return matrix[row][0]
 
         # Diagonal win
         # Desc
-        if matrix[0][0] == matrix[1][1] == matrix[2][2] != 2:
+        if matrix[1][1] != 0 and matrix[0][0] == matrix[1][1] == matrix[2][2] != 2:
             return matrix[1][1]
 
         # Asc
-        if matrix[0][2] == matrix[1][1] == matrix[2][0] != 2:
+        if matrix[1][1] != 0 and matrix[0][2] == matrix[1][1] == matrix[2][0] != 2:
             return matrix[1][1]
 
         for row in range(DIM):
@@ -206,3 +206,27 @@ class Board:
                     return 2
 
         return 0
+
+    def get_main_board(self):
+        """
+        get main board in ultimate board
+        :return: matrix
+        """
+        matrix = [[0, 0, 0] for row in range(DIM)]
+        for r in range(DIM):
+            for c in range(DIM):
+                matrix[r][c] = self.squares[r][c].value
+
+        return matrix
+
+    def get_score_flags(self, board):
+        """
+        get score flags
+        :param board: current board
+        :return: score flags with datatypes dictionary
+        """
+        score_flags = {-1: 0, 0: 0, 1: 0, 2: 0}
+        for r in range(3):
+            for c in range(3):
+                score_flags[board[r][c]] += 1
+        return score_flags

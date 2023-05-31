@@ -30,7 +30,6 @@ class Game:
 
         if game_mode == 1:
             self.AI = AI(level)
-            pass
         elif game_mode == 2:
             self.AI = AI(level, 1)
             self.AI1 = AI(level1, -1)
@@ -91,13 +90,6 @@ class Game:
             if self.playing:
                 self.next_turn()
 
-    def restart(self):
-        """
-        Reset the board
-        :return:
-        """
-        self.__init__(self.game_mode, self.level, self.level1)
-
     def play_turn_click(self, xclick, yclick):
         """
         Play a turn click on the screen
@@ -108,15 +100,22 @@ class Game:
         col, row = self.render.convert_coord_of_screen_to_board(xclick, yclick, self.board)
         self.play_turn(col, row)
 
+    def restart(self):
+        """
+        Reset the board
+        :return:
+        """
+        self.__init__(self.game_mode, self.level, self.level1)
+
     def run_ai(self):
         if not self.playing:
             return
 
         if self.game_mode == 1:
-            if self.AI.player == self.player:
+            if self.player == self.AI.player:
                 self.player_playing = False
                 row, col = self.AI.eval(self.board)
                 self.play_turn(col, row)
                 self.player_playing = True
-        else:
+        elif self.game_mode == 2:
             pass
