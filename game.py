@@ -108,7 +108,7 @@ class Game:
         self.__init__(self.game_mode, self.level, self.level1)
 
     def run_ai(self):
-        if not self.playing:
+        if not self.playing or self.game_mode == 0:
             return
 
         if self.game_mode == 1:
@@ -117,5 +117,14 @@ class Game:
                 row, col = self.AI.eval(self.board)
                 self.play_turn(col, row)
                 self.player_playing = True
+
         elif self.game_mode == 2:
-            pass
+            if self.player == self.AI.player:
+                row, col = self.AI.eval(self.board)
+                self.play_turn(col, row)
+            else:
+                row, col = self.AI1.eval(self.board)
+                self.play_turn(col, row)
+
+
+

@@ -48,7 +48,7 @@ class Minimaxap():
     Minimax algorithm and use Alpha – beta pruning
     """
 
-    def __init__(self, board, player=-1, depth=3):
+    def __init__(self, board, player=-1, depth=4):
         """
         constructor
         :param board: current board
@@ -209,7 +209,7 @@ class MCTS:
     rollout improved by Heuristic
     """
 
-    def __init__(self, player=-1, num_nodes=3):
+    def __init__(self, player=-1, num_nodes=600):
         """
         constructor
         :param player: player AI
@@ -229,11 +229,11 @@ class MCTS:
             """
             self.parent = parent
             self.parent_move = parent_move
-            self.child_nodes = {}  # Move -> MCTSNode dictionary of children
+            self.child_nodes = {}  # (Move -> Node) dictionary of children
             self.untried_moves = move_list
-            self.wins = 0  # Total wins of all paths through this node.
-            self.visits = 0  # Number of times this node has been visited.
-            self.is_full_expanded = False
+            self.wins = 0  # Total wins
+            self.visits = 0  # Total visited.
+            self.is_full_expanded = False # check full expanded
 
     def calc_ucb(self, node):
         """

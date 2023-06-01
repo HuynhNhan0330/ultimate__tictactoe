@@ -33,8 +33,10 @@ class Button():
         :param screen: current screen
         :return:
         """
+
         if self.image is not None:
             screen.blit(self.image, self.rect)
+
         screen.blit(self.text, self.text_rect)
 
     def checkForInput(self, position):
