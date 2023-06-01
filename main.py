@@ -117,22 +117,21 @@ class Main:
         main_rect = main_text.get_rect(center=(WIDTH_WINDOW // 2, 80))
         surface.blit(main_text, main_rect)
         size = 27
-        texts = [get_font(size).render("Game sẽ gồm 9 bàn cờ nhỏ và 1 bàn cờ lớn bao phủ 9", True, "White"),
-                 get_font(size).render("bàn cờ nhỏ. Người chơi sẽ chơi để chiến thắng tại", True, "White"),
-                 get_font(size).render("các bàn cờ nhỏ để được quân tại bàn cờ đó. Cách", True, "White"),
-                 get_font(size).render("chiến thắng là đạt được 3 ô liên tiếp (ngang, dọc,", True, "White"),
-                 get_font(size).render("chéo) cũng như tại bàn cờ nhỏ, lớn. Nếu không thể", True, "White"),
-                 get_font(size).render("đánh được ô nào hết thì sẽ hoà. Và bạn chỉ có thể", True, "White"),
-                 get_font(size).render("đánh các ô tại bàn nhỏ phù hợp. bàn nhỏ phù hợp", True, "White"),
-                 get_font(size).render("dựa vào nước đánh trước của đối thủ. Ví dụ tại bàn", True, "White"),
-                 get_font(size).render("nhỏ này đánh tại vị trí trung tâm thì bạn chỉ có", True, "White"),
-                 get_font(size).render("thể tại bàn nhỏ ở vị trí trung tâm của bàn cờ lớn", True, "White"),
-                 get_font(size).render("và nếu bàn cờ nhỏ đó đã bị chiếm hoặc không còn", True, "White"),
-                 get_font(size).render("chỗ để đánh thì có thể đánh bất kì chỗ nào.", True, "White"),
+        texts = [get_font(size).render("Game sẽ gồm 9 bàn cờ nhỏ và 1 bàn cờ lớn bao phủ 9 bàn", True, "White"),
+                 get_font(size).render("cờ nhỏ. Người chơi sẽ chơi để chiến thắng tại các bàn", True, "White"),
+                 get_font(size).render("cờ nhỏ để được quân tại bàn cờ đó. Cách chiến thắng là", True, "White"),
+                 get_font(size).render("đạt được 3 ô liên tiếp (ngang, dọc, chéo) cũng như tại", True, "White"),
+                 get_font(size).render("bàn cờ nhỏ, lớn. Nếu không thể đánh được ô nào hết thì", True, "White"),
+                 get_font(size).render("sẽ hoà. Và bạn chỉ có thể đánh các ô tại bàn nhỏ phù", True, "White"),
+                 get_font(size).render("hợp. Bàn nhỏ phù hợp dựa vào nước đánh trước của đối", True, "White"),
+                 get_font(size).render("thủ. Ví dụ tại bàn nhỏ này đánh tại vị trí trung tâm", True, "White"),
+                 get_font(size).render("thì bạn chỉ có thể tại bàn nhỏ ở vị trí trung tâm của", True, "White"),
+                 get_font(size).render("bàn cờ lớn và nếu bàn cờ nhỏ đó đã bị chiếm hoặc không", True, "White"),
+                 get_font(size).render("còn chỗ để đánh thì có thể đánh bất kì chỗ nào.", True, "White"),
                  ]
 
         xpos = 27
-        ypos = 130
+        ypos = 150
 
         for text in texts:
             surface.blit(text, (xpos, ypos))

@@ -230,7 +230,7 @@ class MCTS:
             self.parent = parent
             self.parent_move = parent_move
             self.child_nodes = {}  # (Move -> Node) dictionary of children
-            self.untried_moves = move_list
+            self.list_move = move_list
             self.wins = 0  # Total wins
             self.visits = 0  # Total visited.
             self.is_full_expanded = False  # check full expanded
@@ -264,8 +264,8 @@ class MCTS:
         """
         copy_board = board.deepcopy()
         copy_board.mark_sqr(child_move[0], child_move[1], self.player)
-        child_untried_moves = copy_board.get_valids()  # get list move
-        child_node = self.Node(node, child_move, child_untried_moves)
+        child_list_move = copy_board.get_valids()  # get list move
+        child_node = self.Node(node, child_move, child_list_move)
         return child_node
 
     def select(self, node, board):
@@ -280,8 +280,8 @@ class MCTS:
 
         # If node isn't full expanded
         if not node.is_full_expanded:
-            for idx in range(min(self.num_nodes, len(node.untried_moves))):
-                child_move = node.untried_moves[idx]
+            for idx in range(min(self.num_nodes, len(node.list_move))):
+                child_move = node.list_move[idx]
                 child_node = self.expand_leaf(node, board, child_move)
                 node.child_nodes[child_move] = child_node
                 leaf = (child_node, 0)
@@ -300,9 +300,7 @@ class MCTS:
     def rollout(self, board, player):
         """
         the rollout plays out the remainder following a heuristic
-        Heuristic:
-            1. If win, make that move
-            2. Else, random move
+        Heuristic: If win, make that move else random move
         :param board: current board
         :param player: current player
         :return: winner
@@ -353,7 +351,9 @@ class MCTS:
         for _ in range(self.num_nodes):
             copy_board = board.deepcopy()
             node = root_node
+
             leaf = self.select(node, board)
+            # simulation
             simulation_result = self.rollout(copy_board, player)
             won = False
             if simulation_result == player:  # win

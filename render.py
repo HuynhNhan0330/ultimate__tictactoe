@@ -157,7 +157,7 @@ class Render:
 
         board.active = False
 
-    def draw_board_valid(self, surface, board, delete=False):
+    def draw_board_valid(self, surface, board):
         """
         Draw rection valid
         :param surface: current surface
@@ -166,7 +166,7 @@ class Render:
         """
         xcor = board.dims.xcor
         ycor = board.dims.ycor
-        color = BG_COLOR if delete else BOARD_VALID_COLOR
+        color = BOARD_VALID_COLOR
         pygame.draw.rect(surface, color, (xcor, ycor, board.dims.size, board.dims.size), 3)
 
     def draw_status(self, surface, board, player, type):
