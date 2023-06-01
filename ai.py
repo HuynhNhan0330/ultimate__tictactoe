@@ -233,7 +233,7 @@ class MCTS:
             self.untried_moves = move_list
             self.wins = 0  # Total wins
             self.visits = 0  # Total visited.
-            self.is_full_expanded = False # check full expanded
+            self.is_full_expanded = False  # check full expanded
 
     def calc_ucb(self, node):
         """

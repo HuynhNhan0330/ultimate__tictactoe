@@ -36,7 +36,11 @@ class Main:
         """
 
     def mainloop(self):
-        pygame.mixer.init()
+        """
+        main loop
+        :return:
+        """
+        pygame.mixer.init()  # init mixer
         music_background()
 
         while True:
@@ -45,7 +49,7 @@ class Main:
 
             mouse_pos = pygame.mouse.get_pos()
 
-            # draw
+            # switch screen
             if self.status_screen == 0:
                 self.main_screen(screen, mouse_pos)
             elif self.status_screen == 1:
@@ -59,9 +63,16 @@ class Main:
             elif self.status_screen == 5:
                 self.pick_AI_screen(screen, mouse_pos)
 
+            # update change
             pygame.display.update()
 
     def main_screen(self, surface, mouse_pos):
+        """
+        main screen (home)
+        :param surface: current surface
+        :param mouse_pos: current mouse position
+        :return:
+        """
         main_text = get_font(70).render("ULTIMATE TICTACTOE", True, "#545454")
         main_rect = main_text.get_rect(center=(WIDTH_WINDOW // 2, 80))
         surface.blit(main_text, main_rect)
@@ -94,6 +105,12 @@ class Main:
                     sys.exit()
 
     def gui_game_screen(self, surface, mouse_pos):
+        """
+        gui game screen
+        :param surface: current surface
+        :param mouse_pos: current mouse position
+        :return:
+        """
         main_text = get_font(70).render("ULTIMATE TICTACTOE", True, "#545454")
         main_rect = main_text.get_rect(center=(WIDTH_WINDOW // 2, 80))
         surface.blit(main_text, main_rect)
@@ -138,6 +155,12 @@ class Main:
                     self.set_status_screen()
 
     def type_play(self, surface, mouse_pos):
+        """
+        type play screen
+        :param surface: current surface
+        :param mouse_pos: current mouse position
+        :return:
+        """
         main_text = get_font(70).render("ULTIMATE TICTACTOE", True, "#545454")
         main_rect = main_text.get_rect(center=(WIDTH_WINDOW // 2, 80))
         surface.blit(main_text, main_rect)
@@ -179,6 +202,12 @@ class Main:
                 sys.exit()
 
     def difficulty_level_play(self, surface, mouse_pos):
+        """
+        difficulty selection screen
+        :param surface: current surface
+        :param mouse_pos: current mouse position
+        :return:
+        """
         main_text = get_font(70).render("ULTIMATE TICTACTOE", True, "#545454")
         main_rect = main_text.get_rect(center=(WIDTH_WINDOW // 2, 80))
         surface.blit(main_text, main_rect)
@@ -222,15 +251,21 @@ class Main:
                 sys.exit()
 
     def play_screen(self, surface, mouse_pos):
+        """
+        play screen
+        :param surface: current surface
+        :param mouse_pos: current mouse position
+        :return:
+        """
         game = self.game
         game.render_screen_game(surface)
 
         play_again_button = Button(image=None,
-                                   pos=(self.game.board.dims.size + self.game.board.margin + 120, HEIGHT_WINDOW - 100),
+                                   pos=(self.game.board.dims.size + self.game.board.margin + 160, HEIGHT_WINDOW - 100),
                                    text_input="Chơi lại", font=get_font(30), base_color=base_color,
                                    hovering_color="White")
         back_button = Button(image=None,
-                             pos=(self.game.board.dims.size + self.game.board.margin + 120, HEIGHT_WINDOW - 50),
+                             pos=(self.game.board.dims.size + self.game.board.margin + 160, HEIGHT_WINDOW - 50),
                              text_input="Quay lại", font=get_font(30), base_color=base_color,
                              hovering_color="White")
 
@@ -262,6 +297,12 @@ class Main:
         game.run_ai()
 
     def pick_AI_screen(self, surface, mouse_pos):
+        """
+        pick AI screen
+        :param surface: current surface
+        :param mouse_pos: current mouse position
+        :return:
+        """
         main_text = get_font(70).render("ULTIMATE TICTACTOE", True, "#545454")
         main_rect = main_text.get_rect(center=(WIDTH_WINDOW // 2, 80))
         surface.blit(main_text, main_rect)
@@ -298,8 +339,8 @@ class Main:
                              hovering_color="White")
 
         run_button = Button(image=pygame.image.load("Resourse/Image/Rect.png"), pos=(WIDTH_WINDOW * 3 // 4, 630),
-                             text_input="Chơi", font=get_font(48), base_color=base_color,
-                             hovering_color="White")
+                            text_input="Chơi", font=get_font(48), base_color=base_color,
+                            hovering_color="White")
 
         for button in [back_button, run_button]:
             button.changeColor(mouse_pos)

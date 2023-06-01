@@ -55,6 +55,12 @@ class Game:
         self.player = PLAYER_X if self.player == PLAYER_O else PLAYER_O
 
     def draw_board_valid(self, surface, is_draw):
+        """
+        draw the board valid
+        :param surface: current surface
+        :param is_draw: if true then draw else don't draw
+        :return:
+        """
         if not is_draw:
             return
         sqr = self.board.squares[self.board.valid_row][self.board.valid_col]
@@ -62,15 +68,22 @@ class Game:
             self.render.draw_board_valid(surface, sqr)
 
     def draw_player(self, surface):
+        """
+        draw a text player
+        :param surface: current surface
+        :return:
+        """
         if self.game_mode == 0:
-            self.render.draw_player(surface, self.board, PLAYER_X, "Player 1")
-            self.render.draw_player(surface, self.board, PLAYER_O, "Player 2")
+            self.render.draw_player(surface, self.board, PLAYER_X, "Người chơi 1")
+            self.render.draw_player(surface, self.board, PLAYER_O, "Người chơi 2")
         elif self.game_mode == 1:
-            self.render.draw_player(surface, self.board, PLAYER_X, "Player 1")
+            self.render.draw_player(surface, self.board, PLAYER_X, "Người chơi")
             self.render.draw_player(surface, self.board, PLAYER_O, "AI")
         elif self.game_mode == 2:
-            self.render.draw_player(surface, self.board, PLAYER_X, "AI 1")
-            self.render.draw_player(surface, self.board, PLAYER_O, "AI 2")
+            algorithm_AI1 = "minimax" if self.AI.level == 1 else "mtcs"
+            algorithm_AI2 = "minimax" if self.AI1.level == 1 else "mtcs"
+            self.render.draw_player(surface, self.board, PLAYER_X, f"AI 1-{algorithm_AI1}")
+            self.render.draw_player(surface, self.board, PLAYER_O, f"AI 2-{algorithm_AI2}")
 
     def play_turn(self, col, row):
         """
@@ -108,6 +121,10 @@ class Game:
         self.__init__(self.game_mode, self.level, self.level1)
 
     def run_ai(self):
+        """
+        AI play
+        :return:
+        """
         if not self.playing or self.game_mode == 0:
             return
 

@@ -146,6 +146,12 @@ class Board:
         self.set_win(col, row)
 
     def set_win(self, col, row):
+        """
+        set value win
+        :param col: current column
+        :param row: current row
+        :return:
+        """
         main_row = row // 3
         main_col = col // 3
         sqr = self.squares[main_row][main_col]
