@@ -14,8 +14,10 @@ class Main:
         """
         constructor
         """
-        self.screen = pygame.display.set_mode((WIDTH_WINDOW, HEIGHT_WINDOW))  # màn hình chính
-        pygame.display.set_caption('ULTIMATE TIC TAC TOE')  # gán tên cửa sổ
+        self.screen = pygame.display.set_mode((WIDTH_WINDOW, HEIGHT_WINDOW))  # main window
+        pygame.display.set_caption('ULTIMATE TIC TAC TOE')  # caption
+        pygame_icon = pygame.image.load('Resourse/Image/logo_ultimate_tictactoe.png')
+        pygame.display.set_icon(pygame_icon)  # logo
         self.status_screen = 0
         self.game = Game()
 
@@ -386,5 +388,6 @@ class Main:
 
 
 if __name__ == '__main__':
+    # Main run
     main = Main()
     main.mainloop()
