@@ -233,7 +233,7 @@ class MCTS:
             self.list_move = move_list
             self.wins = 0  # Total wins
             self.visits = 0  # Total visited.
-            self.is_full_expanded = False  # check full expanded
+            self.idx_in_list_node = 0
 
     def calc_ucb(self, node):
         """
@@ -279,14 +279,14 @@ class MCTS:
         leaf = (None, None)
 
         # If node isn't full expanded
-        if not node.is_full_expanded:
-            for idx in range(min(self.num_nodes, len(node.list_move))):
-                child_move = node.list_move[idx]
-                child_node = self.expand_leaf(node, board, child_move)
-                node.child_nodes[child_move] = child_node
-                leaf = (child_node, 0)
+        # index of list move < len(list move) or num nodes
+        if node.idx_in_list_node < len(node.list_move) and node.idx_in_list_node < self.num_nodes:
+            child_move = node.list_move[node.idx_in_list_node]
+            child_node = self.expand_leaf(node, board, child_move)
+            node.child_nodes[child_move] = child_node
+            leaf = (child_node, 0)
 
-            node.is_full_expanded = True
+            node.idx_in_list_node += 1
         # Find highest UCB child node
         else:
             for child_key in node.child_nodes.keys():
@@ -332,6 +332,7 @@ class MCTS:
         :param won: winner
         :return:
         """
+        # print(node.parent)
         if not node.parent is None:
             node.visits = node.visits + 1
             if won:
