@@ -41,7 +41,8 @@
 ## IV. Cài đặt
 1. Vào đường dẫn để tải file về: https://drive.google.com/drive/folders/1QzCKIE2FEYl_hDhqNJyr6TCEMeesbrWz?usp=sharing
 2. Click để giải nén ra file game.
-3. Click vào main.exe để chơi.
+3. Vào file vừa giải nén được.
+4. Click vào main.exe để chơi.
 
 <div id="LienHe"></div>
 
