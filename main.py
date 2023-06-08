@@ -274,6 +274,8 @@ class Main:
             button.changeColor(mouse_pos)
             button.update(surface)
 
+        game.run_ai()
+
         for event in pygame.event.get():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 sound_click_mouse()
@@ -295,7 +297,6 @@ class Main:
                 pygame.quit()
                 sys.exit()
 
-        game.run_ai()
 
     def pick_AI_screen(self, surface, mouse_pos):
         """
