@@ -209,7 +209,7 @@ class MCTS:
     rollout improved by Heuristic
     """
 
-    def __init__(self, player=-1, num_nodes=5000):
+    def __init__(self, player=-1, num_nodes=1000):
         """
         constructor
         :param player: player AI
